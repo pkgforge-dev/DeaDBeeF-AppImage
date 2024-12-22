@@ -17,10 +17,8 @@ jobs:
 
     - name: build
       run: |
-        pacman-key --init && pacman-key --populate archlinux
         pacman -Syu --noconfirm base-devel strace patchelf curl wget \
-          desktop-file-utils git artix-archlinux-support llvm mesa xorg-server-xvfb
-        printf "\n[extra]\nInclude = /etc/pacman.d/mirrorlist-arch\n" | tee -a /etc/pacman.conf
+          desktop-file-utils git llvm mesa xorg-server-xvfb
         pacman -Syu --noconfirm gtk3 pulseaudio pulseaudio-alsa
 
         chmod a+x ./*-appimage.sh
