@@ -17,9 +17,16 @@ jobs:
 
     - name: build
       run: |
-        rankmirrors -n 5 /etc/pacman.d/mirrorlist > /etc/pacman.d/mirrorlist
+        echo 'Server = https://artix.cccp.io/$repo/os/$arch' > /etc/pacman.d/mirrorlist
+        echo 'Server = https://us-mirror.artixlinux.org/$repo/os/$arch' >> /etc/pacman.d/mirrorlist
+        echo 'Server = https://gnlug.org/pub/artix-linux/$repo/os/$arch' >>/etc/pacman.d/mirrorlist
+        echo 'Server = http://www.nylxs.com/mirror/repos/$repo/os/$arch' >>/etc/pacman.d/mirrorlist
+        echo 'Server = https://mirror.clarkson.edu/artix-linux/repos/$repo/os/$arch' >>/etc/pacman.d/mirrorlist
+
         pacman -Syu --noconfirm base-devel strace patchelf curl wget \
-          desktop-file-utils git llvm mesa xorg-server-xvfb
+          desktop-file-utils git artix-archlinux-support llvm mesa xorg-server-xvfb
+        pacman-key --init && pacman-key --populate archlinux
+        printf "\n[extra]\nInclude = /etc/pacman.d/mirrorlist-arch\n" | tee -a /etc/pacman.conf
         pacman -Syu --noconfirm gtk3 pulseaudio pulseaudio-alsa
 
         chmod a+x ./*-appimage.sh
