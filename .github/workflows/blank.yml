@@ -17,6 +17,7 @@ jobs:
 
     - name: build
       run: |
+        rankmirrors -n 5 /etc/pacman.d/mirrorlist > /etc/pacman.d/mirrorlist
         pacman -Syu --noconfirm base-devel strace patchelf curl wget \
           desktop-file-utils git llvm mesa xorg-server-xvfb
         pacman -Syu --noconfirm gtk3 pulseaudio pulseaudio-alsa
