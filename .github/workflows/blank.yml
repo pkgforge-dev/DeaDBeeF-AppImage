@@ -23,7 +23,7 @@ jobs:
         echo 'Server = http://www.nylxs.com/mirror/repos/$repo/os/$arch' >>/etc/pacman.d/mirrorlist
         echo 'Server = https://mirror.clarkson.edu/artix-linux/repos/$repo/os/$arch' >>/etc/pacman.d/mirrorlist
 
-        pacman -Syu --noconfirm base-devel strace patchelf curl wget \
+        pacman -S --noconfirm base-devel strace patchelf curl wget \
           desktop-file-utils git artix-archlinux-support llvm mesa xorg-server-xvfb
         pacman-key --init && pacman-key --populate archlinux
         printf "\n[extra]\nInclude = /etc/pacman.d/mirrorlist-arch\n" | tee -a /etc/pacman.conf
