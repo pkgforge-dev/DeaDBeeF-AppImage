@@ -17,6 +17,7 @@ jobs:
 
     - name: build
       run: |
+        sed -i 's/DownloadUser/#DownloadUser/g' /etc/pacman.conf
         pacman -Syu --noconfirm base-devel strace patchelf curl wget \
           desktop-file-utils git artix-archlinux-support llvm mesa xorg-server-xvfb
         pacman-key --init && pacman-key --populate archlinux
