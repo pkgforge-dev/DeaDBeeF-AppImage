@@ -11,18 +11,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: artixlinux/artixlinux:latest
+    container: artixlinux/artixlinux:base
     steps:
     - uses: actions/checkout@v4
 
     - name: build
       run: |
-        echo 'Server = https://artix.cccp.io/$repo/os/$arch' > /etc/pacman.d/mirrorlist
-        echo 'Server = https://us-mirror.artixlinux.org/$repo/os/$arch' >> /etc/pacman.d/mirrorlist
-        echo 'Server = https://gnlug.org/pub/artix-linux/$repo/os/$arch' >>/etc/pacman.d/mirrorlist
-        echo 'Server = http://www.nylxs.com/mirror/repos/$repo/os/$arch' >>/etc/pacman.d/mirrorlist
-        echo 'Server = https://mirror.clarkson.edu/artix-linux/repos/$repo/os/$arch' >>/etc/pacman.d/mirrorlist
-
         pacman -S --noconfirm base-devel strace patchelf curl wget \
           desktop-file-utils git artix-archlinux-support llvm mesa xorg-server-xvfb
         pacman-key --init && pacman-key --populate archlinux
