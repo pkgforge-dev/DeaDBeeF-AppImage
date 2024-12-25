@@ -4,7 +4,7 @@ set -eu
 
 APP=DeaDBeeF
 SITE="$(wget -q https://sourceforge.net/projects/deadbeef/files/travis/linux/ -O - \
-  | grep -Eo "(http|https)://[a-zA-Z0-9./?=_%:-]*" | grep download | grep -vE 'master|feature|bugfix' | head -1 | sed 's/download//g')"
+  | grep -Eo "(http|https)://[a-zA-Z0-9./?=_%:-]*" | grep download | grep -vE 'master|feature|bugfix|1.10' | head -1 | sed 's/download//g')"
 TARGET_BIN="deadbeef"
 DESKTOP="https://raw.githubusercontent.com/DeaDBeeF-Player/deadbeef/master/deadbeef.desktop.in"
 ICON="https://raw.githubusercontent.com/DeaDBeeF-Player/deadbeef/master/icons/scalable/deadbeef.svg"
@@ -29,7 +29,7 @@ mv ./usr/bin/lib ./usr/lib
 
 wget "$DESKTOP" -O ./"$APP".desktop
 wget "$ICON" -O ./deadbeef.svg
-export VERSION="$(echo "$url" | awk -F"_" '{print $2}')"
+export VERSION="$(echo "$url" | awk -F"_" '{print $2; exit}')"
 cp ./"$APP".desktop ./usr/share/applications
 
 # remove all traces of gtk2
