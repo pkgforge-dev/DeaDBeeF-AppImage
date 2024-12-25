@@ -32,6 +32,12 @@ wget "$ICON" -O ./deadbeef.svg
 export VERSION="$(echo "$url" | awk -F"_" '{print $2}')"
 cp ./"$APP".desktop ./usr/share/applications
 
+# remove all traces of gtk2
+echo "Deleting GTK2..."
+find . -type f -iname '*gtk2*'
+find . -type f -iname '*gtk2*' -delete
+echo "-------------------------------------------------------------------"
+
 # Deploy all libs
 cp -vn /usr/lib/libgtk-* ./usr/lib
 ldd ./usr/lib/* | awk -F"[> ]" '{print $4}' | xargs -I {} cp -vn {} ./usr/lib
