@@ -61,7 +61,7 @@ find ./usr/lib/gdk-pixbuf-2.0 -type f -name '*.so*' -exec ldd {} \; \
 find ./usr/lib -type f -regex '.*gdk.*loaders.cache' \
 	-exec sed -i 's|/.*lib.*/gdk-pixbuf.*/.*/loaders/||g' {} \;
 
-( cd ./usr/lib && ln -s ./gdk-pixbuf*/*/loaders/* ./ )
+( cd ./usr/lib && find ./*/* -type f -regex '.*\.so.*' -exec ln -s {} ./ \; )
 
 # Create AppRun
 echo '#!/bin/sh
