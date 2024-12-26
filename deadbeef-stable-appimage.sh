@@ -38,15 +38,18 @@ find . -type f -iname '*gtk2*'
 find . -type f -iname '*gtk2*' -delete
 echo "-------------------------------------------------------------------"
 
-# remove pipewire, only giving support for alsa and pulse for now
-find . -type f -name 'ddb_out_pw.so' -delete
-
 # Deploy all libs
-cp -vn /usr/lib/libgtk-* ./usr/lib
-cp -rv /usr/lib/alsa-lib ./usr/lib
-ldd ./usr/lib/* ./usr/lib/alsa-lib/* | awk -F"[> ]" '{print $4}' | xargs -I {} cp -vn {} ./usr/lib || true
-ldd ./usr/bin/deadbeef | awk -F"[> ]" '{print $4}' | xargs -I {} cp -vn {} ./usr/lib
-ldd ./usr/bin/plugins/* | awk -F"[> ]" '{print $4}' | xargs -I {} cp -vn {} ./usr/lib || true
+cp -vn /usr/lib/libgtk-*     ./usr/lib
+cp -rv /usr/lib/alsa-lib     ./usr/lib
+cp -rv /usr/lib/pipewire-0.3 ./usr/lib
+cp -rv /usr/lib/spa-0.2      ./usr/lib
+
+ldd ./usr/lib/* ./usr/lib/alsa-lib/* 2>/dev/null \
+	| awk -F"[> ]" '{print $4}' | xargs -I {} cp -vn {} ./usr/lib || true
+ldd ./usr/bin/deadbeef 2>/dev/null \
+	| awk -F"[> ]" '{print $4}' | xargs -I {} cp -vn {} ./usr/lib
+ldd ./usr/bin/plugins/* 2>/dev/null \
+	| awk -F"[> ]" '{print $4}' | xargs -I {} cp -vn {} ./usr/lib || true
 
 cp -vn /lib64/ld-linux-x86-64.so.2 ./usr/lib
 
@@ -71,6 +74,8 @@ GDK_LOADER="$(find "$CURRENTDIR" -type f -regex '.*gdk.*loaders.cache' -print -q
 
 export GDK_PIXBUF_MODULEDIR="$GDK_HERE"
 export GDK_PIXBUF_MODULE_FILE="$GDK_LOADER"
+export SPA_PLUGIN_DIR="$CURRENTDIR/usr/lib/spa-0.2"
+export PIPEWIRE_MODULE_DIR="$CURRENTDIR/usr/lib/pipewire-0.3"
 
 exec "$CURRENTDIR"/usr/lib/ld-linux-x86-64.so.2 \
 	--library-path "$CURRENTDIR"/usr/lib \
