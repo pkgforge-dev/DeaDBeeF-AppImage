@@ -43,7 +43,8 @@ find . -type f -name 'ddb_out_pw.so' -delete
 
 # Deploy all libs
 cp -vn /usr/lib/libgtk-* ./usr/lib
-ldd ./usr/lib/* | awk -F"[> ]" '{print $4}' | xargs -I {} cp -vn {} ./usr/lib
+cp -rv /usr/lib/alsa-lib ./usr/lib
+ldd ./usr/lib/* ./usr/lib/alsa-lib/* | awk -F"[> ]" '{print $4}' | xargs -I {} cp -vn {} ./usr/lib || true
 ldd ./usr/bin/deadbeef | awk -F"[> ]" '{print $4}' | xargs -I {} cp -vn {} ./usr/lib
 ldd ./usr/bin/plugins/* | awk -F"[> ]" '{print $4}' | xargs -I {} cp -vn {} ./usr/lib || true
 
