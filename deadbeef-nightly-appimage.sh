@@ -38,6 +38,9 @@ find . -type f -iname '*gtk2*'
 find . -type f -iname '*gtk2*' -delete
 echo "-------------------------------------------------------------------"
 
+# remove pipewire, only giving support for alsa and pulse for now
+find . -type f -name 'ddb_out_pw.so' -delete
+
 # Deploy all libs
 cp -vn /usr/lib/libgtk-* ./usr/lib
 ldd ./usr/lib/* | awk -F"[> ]" '{print $4}' | xargs -I {} cp -vn {} ./usr/lib
