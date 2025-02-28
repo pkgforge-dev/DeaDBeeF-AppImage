@@ -24,6 +24,15 @@ jobs:
         printf "\n[extra]\nInclude = /etc/pacman.d/mirrorlist-arch\n" | tee -a /etc/pacman.conf
         pacman -Syu --noconfirm gtk3 pulseaudio pulseaudio-alsa pipewire-audio
 
+    - name: Install iculess libxml2
+      run: |
+        LIBXML_URL="https://github.com/pkgforge-dev/llvm-libs-debloated/releases/download/continuous/libxml2-iculess-x86_64.pkg.tar.zst"
+        wget --retry-connrefused --tries=30 "$LIBXML_URL" -O ./libxml2-iculess.pkg.tar.zst
+        pacman -U --noconfirm ./libxml2-iculess.pkg.tar.zst
+        rm -f ./libxml2-iculess.pkg.tar.zst
+
+    - name: Make AppImage
+      run: |
         chmod a+x ./*-appimage.sh
         ./deadbeef-nightly-appimage.sh
         ./deadbeef-stable-appimage.sh
