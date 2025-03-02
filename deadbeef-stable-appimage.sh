@@ -12,7 +12,7 @@ ICON="https://raw.githubusercontent.com/DeaDBeeF-Player/deadbeef/master/icons/sc
 export ARCH="$(uname -m)"
 export APPIMAGE_EXTRACT_AND_RUN=1
 
-APPIMAGETOOL="https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-$ARCH.AppImage"
+APPIMAGETOOL="https://github.com/pkgforge-dev/appimagetool-uruntime/releases/download/continuous/appimagetool-$ARCH.AppImage"
 UPINFO="gh-releases-zsync|$(echo $GITHUB_REPOSITORY | tr '/' '|')|continuous|*$ARCH.AppImage.zsync"
 LIB4BN="https://raw.githubusercontent.com/VHSgunzo/sharun/refs/heads/main/lib4bin"
 
