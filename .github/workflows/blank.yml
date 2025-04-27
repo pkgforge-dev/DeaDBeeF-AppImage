@@ -15,29 +15,12 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: build
-      run: |
-        sed -i 's/DownloadUser/#DownloadUser/g' /etc/pacman.conf
-        pacman -Syu --noconfirm base-devel strace patchelf curl wget \
-          desktop-file-utils git artix-archlinux-support llvm mesa xorg-server-xvfb
-        pacman-key --init && pacman-key --populate archlinux
-        printf "\n[extra]\nInclude = /etc/pacman.d/mirrorlist-arch\n" | tee -a /etc/pacman.conf
-        pacman -Syu --noconfirm gtk3 pulseaudio pulseaudio-alsa pipewire-audio
-
-    - name: Install debloated packages
-      run: |
-        LIBXML_URL="https://github.com/pkgforge-dev/llvm-libs-debloated/releases/download/continuous/libxml2-iculess-x86_64.pkg.tar.zst"
-        OPUS_URL="https://github.com/pkgforge-dev/llvm-libs-debloated/releases/download/continuous/opus-nano-x86_64.pkg.tar.zst"
-        wget --retry-connrefused --tries=30 "$LIBXML_URL" -O ./libxml2-iculess.pkg.tar.zst
-        wget --retry-connrefused --tries=30 "$OPUS_URL" -O ./opus-nano.pkg.tar.zst
-        pacman -U --noconfirm ./*.pkg.tar.zst
-        rm -f ./*.pkg.tar.zst
+    - name: Get dependencies
+      run: chmod +x ./get-dependencies.sh && ./get-dependencies.sh
 
     - name: Make AppImage
       run: |
-        chmod a+x ./*-appimage.sh
-        ./deadbeef-nightly-appimage.sh
-        ./deadbeef-stable-appimage.sh
+        chmod a+x ./*-appimage.sh && ./*-appimage.sh
         mkdir dist
         mv *.AppImage* dist/
 
