@@ -32,6 +32,7 @@ if [ "$1" = 'devel' ]; then
 else
 	export VERSION=$(echo "$TARBALL" | awk -F'_' '{print $2; exit}')
 fi
+echo "$VERSION" > ~/version
 
 # Prepare AppDir
 mkdir ./AppDir
