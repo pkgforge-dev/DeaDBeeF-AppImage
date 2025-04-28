@@ -73,7 +73,7 @@ jobs:
         - name: Read version
           run: |
             cat version
-            export VERSION="$(<version)"
+            export VERSION="$(cat version)"
             echo "APP_VERSION=${VERSION}" >> "${GITHUB_ENV}"
 
         #Version Release
@@ -87,7 +87,7 @@ jobs:
         - name: Continuous Releaser
           uses: softprops/action-gh-release@v2
           with:
-            name: "pavucontrol-qt AppImage ${{ env.APP_VERSION }}"
+            name: "DeaDBeeF AppImage ${{ env.APP_VERSION }}"
             tag_name: "${{ env.APP_VERSION }}"
             prerelease: false
             draft: false
