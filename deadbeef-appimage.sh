@@ -8,6 +8,14 @@ export APPIMAGE_EXTRACT_AND_RUN=1
 APPIMAGETOOL="https://github.com/pkgforge-dev/appimagetool-uruntime/releases/download/continuous/appimagetool-$ARCH.AppImage"
 UPINFO="gh-releases-zsync|$(echo $GITHUB_REPOSITORY | tr '/' '|')|continuous|*$ARCH.AppImage.zsync"
 
+# static bins
+FAAC_URL="https://pkgs.pkgforge.dev/dl/bincache/x86_64-linux/faac/nixpkgs/faac/raw.dl"
+FLAC_URL="https://pkgs.pkgforge.dev/dl/bincache/x86_64-linux/flac/nixpkgs/flac/raw.dl"
+LAME_URL="https://pkgs.pkgforge.dev/dl/bincache/x86_64-linux/lame/nixpkgs/lame/raw.dl"
+OGGENC_URL="https://pkgs.pkgforge.dev/dl/bincache/x86_64-linux/vorbis-tools/ppkg/stable/oggenc/raw.dl"
+OPUSENC_URL="https://pkgs.pkgforge.dev/dl/bincache/x86_64-linux/opus-tools/ppkg/stable/opusenc/raw.dl"
+WAVPACK_URL="https://pkgs.pkgforge.dev/dl/bincache/x86_64-linux/wavpack/nixpkgs/wavpack/raw.dl"
+
 if [ "$1" = 'devel' ]; then
 	echo "Making nightly release..."
 	APP=DeaDBeeF_Nightly
@@ -41,12 +49,20 @@ cd ./AppDir
 wget "$TARBALL" -O download.tar.bz2
 tar xvf ./*.tar.*
 rm -f ./*.tar.*
-
 mv -v ./deadbeef* ./bin
 mv -v ./bin/lib   ./
 
-wget "$DESKTOP" -O ./"$APP".desktop
-wget "$ICON" -O ./deadbeef.svg
+wget "$ICON"    -O  ./deadbeef.svg
+wget "$ICON"    -O  ./.DirIcon
+wget "$DESKTOP" -O  ./"$APP".desktop
+
+wget "$FAAC_URL"    -O  ./bin/faac
+wget "$FLAC_URL"    -O  ./bin/flac
+wget "$LAME_URL"    -O  ./bin/lame
+wget "$OGGENC_URL"  -O  ./bin/oggenc
+wget "$OPUSENC_URL" -O  ./bin/opusenc
+wget "$WAVPACK_URL" -O  ./bin/wavpack
+chmod +x ./bin/*
 
 # remove all traces of gtk2
 echo "Deleting GTK2..."
@@ -80,6 +96,7 @@ find ./lib -type f -regex '.*gdk.*loaders.cache' \
 echo '#!/bin/sh
 CURRENTDIR="$(readlink -f "$(dirname "$0")")"
 
+export PATH="$CURRENTDIR/bin:$PATH"
 export GDK_PIXBUF_MODULEDIR="$(echo "$CURRENTDIR"/lib/gdk-pixbuf-*)"
 export GDK_PIXBUF_MODULE_FILE="$(echo "$GDK_PIXBUF_MODULEDIR"/*/loaders.cache)"
 export SPA_PLUGIN_DIR="$(echo "$CURRENTDIR"/lib/spa-*)"
