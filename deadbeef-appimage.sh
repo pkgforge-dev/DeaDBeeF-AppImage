@@ -6,7 +6,7 @@ export ARCH="$(uname -m)"
 export APPIMAGE_EXTRACT_AND_RUN=1
 
 APPIMAGETOOL="https://github.com/pkgforge-dev/appimagetool-uruntime/releases/download/continuous/appimagetool-$ARCH.AppImage"
-UPINFO="gh-releases-zsync|$(echo $GITHUB_REPOSITORY | tr '/' '|')|continuous|*$ARCH.AppImage.zsync"
+UPINFO="gh-releases-zsync|$(echo $GITHUB_REPOSITORY | tr '/' '|')|latest|*$ARCH.AppImage.zsync"
 
 # static bins
 FAAC_URL="https://pkgs.pkgforge.dev/dl/bincache/x86_64-linux/faac/nixpkgs/faac/raw.dl"
@@ -20,6 +20,7 @@ if [ "$1" = 'devel' ]; then
 	echo "Making nightly release..."
 	APP=DeaDBeeF_Nightly
 	SITE="https://sourceforge.net/projects/deadbeef/files/travis/linux/master"
+	UPINFO="$(echo "$UPINFO" | sed 's/latest/nightly/')"
 else
 	echo "Making stable release..."
 	APP=DeaDBeeF
