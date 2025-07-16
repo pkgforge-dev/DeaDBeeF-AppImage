@@ -1,7 +1,13 @@
-# DeaDBeeF-AppImage
+# DeaDBeeF-AppImage 🐧
+
+[![GitHub Downloads](https://img.shields.io/github/downloads/pkgforge-dev/DeaDBeeF-AppImage/total?logo=github&label=GitHub%20Downloads)](https://github.com/pkgforge-dev/DeaDBeeF-AppImage/releases/latest)
+[![CI Build Status](https://github.com//pkgforge-dev/DeaDBeeF-AppImage/actions/workflows/blank.yml/badge.svg)](https://github.com/pkgforge-dev/DeaDBeeF-AppImage/releases/latest)
+
+---
+
 Unofficial AppImage of the DeaDBeeF music player: https://github.com/DeaDBeeF-Player/deadbeef
 
-Uses the officla portable builds and turns them into AppImage: https://sourceforge.net/projects/deadbeef/files/travis/linux/
+Takes the official portable builds and turns them into AppImage: https://sourceforge.net/projects/deadbeef/files/travis/linux/
 
 * [Latest Stable Release](https://github.com/pkgforge-dev/DeaDBeeF-AppImage/releases/latest)
 
