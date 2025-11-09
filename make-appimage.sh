@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -eu
+set -e
 
 ARCH="$(uname -m)"
 VERSION="$(cat ~/version)"
