@@ -34,7 +34,7 @@ chmod +x ./quick-sharun
 	/usr/bin/mpcenc   \
 	/usr/bin/oggenc   \
 	/usr/bin/opusenc  \
-	/usr/bin/wavpack 
+	/usr/bin/wavpack
 
 mkdir -p ./dist
 mv -v ./*.AppImage* ./dist
