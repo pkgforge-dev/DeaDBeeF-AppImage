@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -eux
+set -e
 EXTRA_PACKAGES="https://raw.githubusercontent.com/pkgforge-dev/Anylinux-AppImages/refs/heads/main/useful-tools/get-debloated-pkgs.sh"
 
 echo "Installing dependencies..."
@@ -27,7 +27,7 @@ chmod +x ./get-debloated-pkgs.sh
 echo "Gettign deadbeef..."
 echo "---------------------------------------------------------------"
 
-if [ "$1" = 'devel' ]; then
+if [ "$DEVEL" = true ]; then
 	echo "Making nightly release..."
 	APP=DeaDBeeF_Nightly
 	SITE="https://sourceforge.net/projects/deadbeef/files/travis/linux/master"
@@ -39,7 +39,7 @@ else
 		| grep -vi 'master\|feature\|bugfix' | head -1 | sed 's|/download||')
 fi
 
-if [ "$1" = 'devel' ]; then
+if [ "$DEVEL" = true ]; then
 	export VERSION=$(wget "$SITE" -O - | sed 's/"/ /g' \
 		| grep "files_date" | grep -o "[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}" | head -1)
 else
