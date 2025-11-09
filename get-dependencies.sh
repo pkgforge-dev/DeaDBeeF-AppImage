@@ -15,6 +15,7 @@ pacman -Syu --noconfirm \
 	mesa                \
 	patchelf            \
 	pipewire-audio      \
+	pipewire-jack       \
 	pulseaudio          \
 	pulseaudio-alsa     \
 	strace              \
