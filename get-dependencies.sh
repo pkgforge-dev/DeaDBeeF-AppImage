@@ -8,17 +8,12 @@ echo "---------------------------------------------------------------"
 pacman -Syu --noconfirm \
 	base-devel          \
 	curl                \
-	desktop-file-utils  \
 	git                 \
 	libxss              \
-	llvm                \
-	mesa                \
-	patchelf            \
 	pipewire-audio      \
 	pipewire-jack       \
 	pulseaudio          \
 	pulseaudio-alsa     \
-	strace              \
 	wget                \
 	xorg-server-xvfb    \
 	zsync
