@@ -26,7 +26,7 @@ export DEPLOY_PIPEWIRE=1
 # ADD LIBRARIES
 wget --retry-connrefused --tries=30 "$SHARUN" -O ./quick-sharun
 chmod +x ./quick-sharun
-./quick-sharun ./AppDir/bin/* ./AppDir/bin/*/* /usr/lib/alsa-lib/*pulse*.so*
+./quick-sharun ./AppDir/bin/* ./AppDir/bin/*/*
 
 mkdir -p ./dist
 mv -v ./*.AppImage* ./dist
