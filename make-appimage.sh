@@ -31,9 +31,10 @@ chmod +x ./quick-sharun
 	/usr/bin/faac     \
 	/usr/bin/flac     \
 	/usr/bin/lame     \
+	/usr/bin/mpcenc   \
 	/usr/bin/oggenc   \
 	/usr/bin/opusenc  \
-	/usr/bin/wavpack
+	/usr/bin/wavpack 
 
 mkdir -p ./dist
 mv -v ./*.AppImage* ./dist
