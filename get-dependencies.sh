@@ -6,16 +6,22 @@ EXTRA_PACKAGES="https://raw.githubusercontent.com/pkgforge-dev/Anylinux-AppImage
 echo "Installing dependencies..."
 echo "---------------------------------------------------------------"
 pacman -Syu --noconfirm \
-	base-devel          \
-	curl                \
-	git                 \
-	libxss              \
-	pipewire-audio      \
-	pipewire-jack       \
-	pulseaudio          \
-	pulseaudio-alsa     \
-	wget                \
-	xorg-server-xvfb    \
+	base-devel       \
+	curl             \
+	faac             \
+	flac             \
+	git              \
+	lame             \
+	libxss           \
+	musepack-tools   \
+	pipewire-audio   \
+	pipewire-jack    \
+	pulseaudio       \
+	pulseaudio-alsa  \
+	vorbis-tools     \
+	wavpack          \
+	wget             \
+	xorg-server-xvfb \
 	zsync
 
 echo "Installing debloated packages..."
@@ -65,10 +71,10 @@ OGGENC_URL="https://pkgs.pkgforge.dev/dl/bincache/x86_64-linux/vorbis-tools/ppkg
 OPUSENC_URL="https://pkgs.pkgforge.dev/dl/bincache/x86_64-linux/opus-tools/ppkg/stable/opusenc/raw.dl"
 WAVPACK_URL="https://pkgs.pkgforge.dev/dl/bincache/x86_64-linux/wavpack/nixpkgs/wavpack/raw.dl"
 
-wget --retry-connrefused --tries=30 "$FAAC_URL"    -O  ./AppDir/bin/faac
-wget --retry-connrefused --tries=30 "$FLAC_URL"    -O  ./AppDir/bin/flac
-wget --retry-connrefused --tries=30 "$LAME_URL"    -O  ./AppDir/bin/lame
-wget --retry-connrefused --tries=30 "$OGGENC_URL"  -O  ./AppDir/bin/oggenc
-wget --retry-connrefused --tries=30 "$OPUSENC_URL" -O  ./AppDir/bin/opusenc
-wget --retry-connrefused --tries=30 "$WAVPACK_URL" -O  ./AppDir/bin/wavpack
+#wget --retry-connrefused --tries=30 "$FAAC_URL"    -O  ./AppDir/bin/faac
+#wget --retry-connrefused --tries=30 "$FLAC_URL"    -O  ./AppDir/bin/flac
+#wget --retry-connrefused --tries=30 "$LAME_URL"    -O  ./AppDir/bin/lame
+#wget --retry-connrefused --tries=30 "$OGGENC_URL"  -O  ./AppDir/bin/oggenc
+#wget --retry-connrefused --tries=30 "$OPUSENC_URL" -O  ./AppDir/bin/opusenc
+#wget --retry-connrefused --tries=30 "$WAVPACK_URL" -O  ./AppDir/bin/wavpack
 chmod +x ./AppDir/bin/*
