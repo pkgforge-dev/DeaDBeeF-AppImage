@@ -26,18 +26,18 @@ chmod +x ./get-debloated-pkgs.sh
 
 echo "Gettign deadbeef..."
 echo "---------------------------------------------------------------"
-
 if [ "$DEVEL" = true ]; then
 	echo "Making nightly release..."
-	APP=DeaDBeeF_Nightly
 	SITE="https://sourceforge.net/projects/deadbeef/files/travis/linux/master"
 else
 	echo "Making stable release..."
-	APP=DeaDBeeF
 	SITE=$(wget "https://sourceforge.net/projects/deadbeef/files/travis/linux" -O - \
 		| sed 's/[()",{} ]/\n/g' | grep -o 'https.*linux.*download$' \
 		| grep -vi 'master\|feature\|bugfix' | head -1 | sed 's|/download||')
 fi
+
+TARBALL=$(wget "$SITE" -O - | sed 's/[()",{} ]/\n/g' \
+	| grep -o "https.*linux.*$ARCH.tar.bz2.*download$" | head -1)
 
 if [ "$DEVEL" = true ]; then
 	export VERSION=$(wget "$SITE" -O - | sed 's/"/ /g' \
@@ -46,9 +46,6 @@ else
 	export VERSION=$(echo "$TARBALL" | awk -F'_' '{print $2; exit}')
 fi
 echo "$VERSION" > ~/version
-
-TARBALL=$(wget "$SITE" -O - | sed 's/[()",{} ]/\n/g' \
-	| grep -o "https.*linux.*$ARCH.tar.bz2.*download$" | head -1)
 
 wget --retry-connrefused --tries=30 "$TARBALL" -O /tmp/download.tar.bz2
 tar xvf /tmp/download.tar.bz2
