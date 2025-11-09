@@ -20,7 +20,6 @@ export UPINFO="gh-releases-zsync|${GITHUB_REPOSITORY%/*}|${GITHUB_REPOSITORY#*/}
 export OUTNAME="$APP"-"$VERSION"-anylinux-"$ARCH".AppImage
 export DESKTOP="https://raw.githubusercontent.com/DeaDBeeF-Player/deadbeef/master/deadbeef.desktop.in"
 export ICON="https://raw.githubusercontent.com/DeaDBeeF-Player/deadbeef/master/icons/scalable/deadbeef.svg"
-export DEPLOY_OPENGL=1
 export DEPLOY_PIPEWIRE=1
 
 # ADD LIBRARIES
