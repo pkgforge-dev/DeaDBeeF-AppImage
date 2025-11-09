@@ -26,7 +26,15 @@ export DEPLOY_PIPEWIRE=1
 # ADD LIBRARIES
 wget --retry-connrefused --tries=30 "$SHARUN" -O ./quick-sharun
 chmod +x ./quick-sharun
-./quick-sharun ./AppDir/bin/* ./AppDir/bin/*/*
+./quick-sharun \
+	./AppDir/bin/*    \
+	./AppDir/bin/*/*  \
+	/usr/bin/faac     \
+	/usr/bin/flac     \
+	/usr/bin/lame     \
+	/usr/bin/oggenc   \
+	/usr/bin/opusenc  \
+	/usr/bin/wavpack
 
 mkdir -p ./dist
 mv -v ./*.AppImage* ./dist
