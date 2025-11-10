@@ -35,12 +35,16 @@ pacman -Rsndd --noconfirm mesa
 
 echo "Gettign deadbeef..."
 echo "---------------------------------------------------------------"
+PROXY=https://api.rv.pkgforge.dev
+STABLE="$PROXY/https://sourceforge.net/projects/deadbeef/files/travis/linux"
+NIGHTLY="$PROXY/https://sourceforge.net/projects/deadbeef/files/Builds/master/linux"
+
 if [ "$DEVEL" = true ]; then
 	echo "Making nightly release..."
-	SITE="https://sourceforge.net/projects/deadbeef/files/Builds/master/linux"
+	SITE="$NIGHTLY"
 else
 	echo "Making stable release..."
-	SITE=$(wget "https://sourceforge.net/projects/deadbeef/files/travis/linux" -O - \
+	SITE=$(wget "$STABLE" -O - \
 		| sed 's/[()",{} ]/\n/g' | grep -o 'https.*linux.*download$' \
 		| grep -vi 'master\|feature\|bugfix' | head -1 | sed 's|/download||')
 fi
@@ -48,18 +52,13 @@ fi
 TARBALL=$(wget "$SITE" -O - | sed 's/[()",{} ]/\n/g' \
 	| grep -o "https.*linux.*$ARCH.tar.bz2.*download$" | head -1)
 
-if [ "$DEVEL" = true ]; then
-	VERSION=$(wget "$SITE" -O - | sed 's/"/ /g' \
-		| grep "files_date" | grep -o "[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}" | head -1)
-else
-	VERSION=$(echo "$TARBALL" | awk -F'_' '{print $2; exit}')
-fi
-echo "$VERSION" > ~/version
-
 wget --retry-connrefused --tries=30 "$TARBALL" -O /tmp/download.tar.bz2
 tar xvf /tmp/download.tar.bz2
+VERSION=$(echo ./deadbeef-*)
+echo "${VERSION#*-}" > ~/version
+
 mkdir -p ./AppDir
-mv -v ./deadbeef* ./AppDir/bin
+mv -v ./deadbeef-* ./AppDir/bin
 chmod +x ./AppDir/bin/*
 
 # remove all traces of gtk2
