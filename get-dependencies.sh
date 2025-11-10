@@ -53,7 +53,7 @@ fi
 TARBALL=$(wget "$SITE" -O - | sed 's/[()",{} ]/\n/g' \
 	| grep -o "https.*linux.*$ARCH.tar.bz2.*download$" | head -1)
 
-wget --retry-connrefused --tries=30 "$TARBALL" -O /tmp/download.tar.bz2
+wget user-agent="Mozilla/5.0" --retry-connrefused --tries=30 "$TARBALL" -O /tmp/download.tar.bz2
 tar xvf /tmp/download.tar.bz2
 VERSION=$(echo ./deadbeef-*)
 echo "${VERSION#*-}" > ~/version
