@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -e
+set -ex
 EXTRA_PACKAGES="https://raw.githubusercontent.com/pkgforge-dev/Anylinux-AppImages/refs/heads/main/useful-tools/get-debloated-pkgs.sh"
 
 echo "Installing dependencies..."
@@ -49,10 +49,10 @@ TARBALL=$(wget "$SITE" -O - | sed 's/[()",{} ]/\n/g' \
 	| grep -o "https.*linux.*$ARCH.tar.bz2.*download$" | head -1)
 
 if [ "$DEVEL" = true ]; then
-	export VERSION=$(wget "$SITE" -O - | sed 's/"/ /g' \
+	VERSION=$(wget "$SITE" -O - | sed 's/"/ /g' \
 		| grep "files_date" | grep -o "[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}" | head -1)
 else
-	export VERSION=$(echo "$TARBALL" | awk -F'_' '{print $2; exit}')
+	VERSION=$(echo "$TARBALL" | awk -F'_' '{print $2; exit}')
 fi
 echo "$VERSION" > ~/version
 
@@ -65,4 +65,3 @@ chmod +x ./AppDir/bin/*
 # remove all traces of gtk2
 find ./AppDir -type f -iname '*gtk2*'
 find ./AppDir -type f -iname '*gtk2*' -delete
-
