@@ -45,15 +45,37 @@ if [ "$DEVEL" = true ]; then
 	SITE="$NIGHTLY"
 else
 	echo "Making stable release..."
-	SITE=$(wget "$STABLE" -O - \
-		| sed 's/[()",{} ]/\n/g' | grep -o 'https.*linux.*download$' \
-		| grep -vi 'master\|feature\|bugfix' | head -1 | sed 's|/download||')
+	SITE=$(wget --retry-connrefused --tries=30 "$STABLE" -O - \
+		| sed 's/[()",{} ]/\n/g'                          \
+		| grep -o 'https.*linux.*download$'               \
+		| grep -vi 'master\|feature\|bugfix'              \
+		| head -1                                         \
+		| sed 's|/download||'
+	)
 fi
 
-TARBALL=$(wget "$SITE" -O - | sed 's/[()",{} ]/\n/g' \
-	| grep -o "https.*linux.*$ARCH.tar.bz2.*download$" | head -1)
+# the amount of hacks to get a working link...
+ARTIFACT=$(wget --retry-connrefused --tries=30 "$SITE" -O - \
+	| sed 's/[()",{} ]/\n/g'                            \
+	| grep -o "https.*linux.*$ARCH.tar.bz2.*download$"  \
+	| awk -F '/' '{print  $(NF-1); exit}'
+)
+VERSION=$(wget --retry-connrefused --tries=30 "$SITE" -O - \
+	| sed 's/[()",{} ]/\n/g'                            \
+	| grep -o "https.*linux.*$ARCH.tar.bz2.*download$"  \
+	| awk -F '/' '{print  $(NF-2); exit}'
+)
 
-wget --user-agent="Mozilla/5.0" --retry-connrefused --tries=30 "$TARBALL" -O /tmp/download.tar.bz2
+if [ "$DEVEL" = true ]; then
+	TARBALL="https://flylife.dl.sourceforge.net/project/deadbeef/Builds/master/linux/$ARTIFACT?viasf=1"
+else
+	TARBALL="https://excellmedia.dl.sourceforge.net/project/deadbeef/travis/linux/$VERSION/$ARTIFACT?viasf=1"
+fi
+
+echo ------------------------------------------------------------------------
+echo "$TARBALL"
+echo ------------------------------------------------------------------------
+wget --retry-connrefused --tries=30 "$TARBALL" -O /tmp/download.tar.bz2
 tar xvf /tmp/download.tar.bz2
 VERSION=$(echo ./deadbeef-*)
 echo "${VERSION#*-}" > ~/version
