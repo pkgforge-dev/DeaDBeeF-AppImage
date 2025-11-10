@@ -37,7 +37,7 @@ echo "Gettign deadbeef..."
 echo "---------------------------------------------------------------"
 if [ "$DEVEL" = true ]; then
 	echo "Making nightly release..."
-	SITE="https://sourceforge.net/projects/deadbeef/files/travis/linux/master"
+	SITE="https://sourceforge.net/projects/deadbeef/files/Builds/master/linux"
 else
 	echo "Making stable release..."
 	SITE=$(wget "https://sourceforge.net/projects/deadbeef/files/travis/linux" -O - \
