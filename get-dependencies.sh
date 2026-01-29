@@ -1,38 +1,28 @@
 #!/bin/sh
 
-set -ex
-ARCH=$(uname -m)
-EXTRA_PACKAGES="https://raw.githubusercontent.com/pkgforge-dev/Anylinux-AppImages/refs/heads/main/useful-tools/get-debloated-pkgs.sh"
+set -e
 
-echo "Installing dependencies..."
+ARCH=$(uname -m)
+
+echo "Installing package dependencies..."
 echo "---------------------------------------------------------------"
 pacman -Syu --noconfirm \
-	base-devel       \
-	curl             \
 	faac             \
 	flac             \
-	git              \
 	lame             \
 	libxss           \
 	musepack-tools   \
 	opus-tools       \
 	pipewire-audio   \
 	pipewire-jack    \
-	pulseaudio       \
-	pulseaudio-alsa  \
 	vorbis-tools     \
-	wavpack          \
-	wget             \
-	xorg-server-xvfb \
-	zsync
+	wavpack
 
 echo "Installing debloated packages..."
 echo "---------------------------------------------------------------"
-wget --retry-connrefused --tries=30 "$EXTRA_PACKAGES" -O ./get-debloated-pkgs.sh
-chmod +x ./get-debloated-pkgs.sh
-./get-debloated-pkgs.sh gtk3-mini gdk-pixbuf2-mini librsvg-mini opus-mini libxml2-mini
+get-debloated-pkgs --add-common --prefer-nano
 
-pacman -Rsndd --noconfirm mesa
+pacman -Rsndd --noconfirm mesa # gtk3 app doesn't need mesa
 
 echo "Gettign deadbeef..."
 echo "---------------------------------------------------------------"
@@ -40,7 +30,7 @@ PROXY=https://api.rv.pkgforge.dev
 STABLE="$PROXY/https://sourceforge.net/projects/deadbeef/files/travis/linux"
 NIGHTLY="$PROXY/https://sourceforge.net/projects/deadbeef/files/Builds/master/linux"
 
-if [ "$DEVEL" = true ]; then
+if [ "$DEVEL_RELEASE" = true ]; then
 	echo "Making nightly release..."
 	SITE="$NIGHTLY"
 else
@@ -66,7 +56,7 @@ VERSION=$(wget --retry-connrefused --tries=30 "$SITE" -O - \
 	| awk -F '/' '{print  $(NF-2); exit}'
 )
 
-if [ "$DEVEL" = true ]; then
+if [ "$DEVEL_RELEASE" = true ]; then
 	TARBALL="https://flylife.dl.sourceforge.net/project/deadbeef/Builds/master/linux/$ARTIFACT?viasf=1"
 else
 	TARBALL="https://excellmedia.dl.sourceforge.net/project/deadbeef/travis/linux/$VERSION/$ARTIFACT?viasf=1"
