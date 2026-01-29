@@ -7,7 +7,7 @@
 [![Latest Stable Release](https://img.shields.io/github/v/release/pkgforge-dev/DeaDBeeF-AppImage)](https://github.com/pkgforge-dev/DeaDBeeF-AppImage/releases/latest)
 
 <p align="center">
-  <img src="https://github.com/pkgforge-dev.png" width="128" />
+  <img src="https://github.com/DeaDBeeF-Player/deadbeef/blob/master/icons/128x128/deadbeef.png?raw=true" width="128" />
 </p>
 
 
