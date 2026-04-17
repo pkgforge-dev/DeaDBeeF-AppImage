@@ -13,8 +13,7 @@
 
 | Latest Stable Release | Latest Nightly Relase | Upstream URL |
 | :---: | :---: | :---: |
-| [Click here](https://github.com/pkgforge-dev/DeaDBeeF-AppImage/releases/latest) | [Click here](https://github.com/pkgforge-dev/DeaDBeeF-AppImage/releases/tag/nightly) | [Click here](https://github.com/pkgforge-dev/Anylinux-AppImages) |
-
+| [Click here](https://github.com/pkgforge-dev/DeaDBeeF-AppImage/releases/latest) | [Click here](https://github.com/pkgforge-dev/DeaDBeeF-AppImage/releases/tag/nightly) | [Click here](https://github.com/DeaDBeeF-Player/deadbeef) | 
 </div>
 
 ---
