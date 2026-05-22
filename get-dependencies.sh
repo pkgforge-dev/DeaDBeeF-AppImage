@@ -40,10 +40,14 @@ pacman -Syu --noconfirm \
 
 echo "Installing debloated packages..."
 echo "---------------------------------------------------------------"
-get-debloated-pkgs --add-common --prefer-nano
+get-debloated-pkgs --add-common --prefer-nano ! gdk-pixbuf ! librsvg
+
+# Comment this out if you need an AUR package
+make-aur-package glycin-ng
 
 pacman -Rsndd --noconfirm mesa # gtk3 app doesn't need mesa
 
+# If the application needs to be manually built that has to be done down here
 echo "Building deadbeef..."
 echo "---------------------------------------------------------------"
 rm -rf "$BUILD_DIR"
