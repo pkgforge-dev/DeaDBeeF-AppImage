@@ -14,6 +14,7 @@ export DEPLOY_PIPEWIRE=1
 # Deploy dependencies
 quick-sharun \
 	./AppDir/bin/*    \
+	./AppDir/bin/*/*  \
 	/usr/bin/faac     \
 	/usr/bin/flac     \
 	/usr/bin/lame     \
@@ -22,7 +23,9 @@ quick-sharun \
 	/usr/bin/opusenc  \
 	/usr/bin/wavpack
 
-# Additional changes can be done in between here
+# we end up with duplicated libraries in AppDir/lib/bin
+rm -rf ./AppDir/shared/lib/bin
+ln -sfr ./AppDir/bin ./AppDir/shared/lib/bin 
 
 # Turn AppDir into AppImage
 quick-sharun --make-appimage
