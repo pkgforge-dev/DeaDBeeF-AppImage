@@ -40,10 +40,7 @@ pacman -Syu --noconfirm \
 
 echo "Installing debloated packages..."
 echo "---------------------------------------------------------------"
-get-debloated-pkgs --add-common --prefer-nano ! gdk-pixbuf ! librsvg
-
-# Comment this out if you need an AUR package
-make-aur-package glycin-ng
+get-debloated-pkgs --add-common --prefer-nano ! gdk-pixbuf ! librsvg glycin-mini
 
 pacman -Rsndd --noconfirm mesa # gtk3 app doesn't need mesa
 
