@@ -40,7 +40,7 @@ pacman -Syu --noconfirm \
 
 echo "Installing debloated packages..."
 echo "---------------------------------------------------------------"
-get-debloated-pkgs --add-common --prefer-nano ! gdk-pixbuf ! librsvg glycin-mini
+get-debloated-pkgs --add-common --prefer-nano
 
 pacman -Rsndd --noconfirm mesa # gtk3 app doesn't need mesa
 
