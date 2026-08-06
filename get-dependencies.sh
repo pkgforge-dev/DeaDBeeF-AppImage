@@ -30,7 +30,7 @@ pacman -Syu --noconfirm \
 	mpg123         \
 	musepack-tools \
 	opus-tools     \
-	pipewire       \
+	pipewire-audio \
 	pipewire-jack  \
 	pulseaudio     \
 	vorbis-tools   \
